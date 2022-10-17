@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import OrangeButton from './OrangeButton';
 import { reset } from '../store/modules/mbti';
+import { useEffect } from 'react';
 
 const Header = styled.p`
   font-size: 3em;
@@ -31,6 +32,20 @@ export default function Show() {
   const result = useSelector((state) => state.mbti.mbtiResult);
   const explaination = useSelector((state) => state.mbti.explaination[result]);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function sendData() {
+      const resInc = await fetch('http://localhost:3001/data/inccount', {
+        method: 'POST',
+      });
+      if (resInc.status === 200) {
+        console.log(await resInc.json());
+      } else {
+        throw new Error('통신 이상');
+      }
+    }
+    sendData();
+  }, []);
 
   return (
     <>
