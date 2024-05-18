@@ -103,7 +103,7 @@ export default function Start() {
   }
 
   useEffect(() => {
-    mongoFetchData();
+    // mongoFetchData();
     // sqlFetchData();
   }, []);
 
